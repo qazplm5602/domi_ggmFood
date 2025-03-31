@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ScreenNameType = 'Home';
+export type ScreenNameType = 'Home' | 'Content';
 
 interface ScreenStoreType {
     screen: ScreenNameType,
