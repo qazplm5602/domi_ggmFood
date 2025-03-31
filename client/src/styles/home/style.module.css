@@ -1,0 +1,24 @@
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  position: fixed;
+  top: calc(50% - 100px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.logo > img {
+  width: 223px;
+  filter: drop-shadow(0 0 100px #FEFF6B);
+}
+.logo > h1 {
+  font-size: 100px;
+}
+
+.touch {
+  font-size: 45px;
+}
+/*# sourceMappingURL=style.module.css.map */

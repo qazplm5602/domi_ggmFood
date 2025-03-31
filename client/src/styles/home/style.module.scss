@@ -1,0 +1,55 @@
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: max-content;
+
+    position: fixed;
+    top: calc(50% - 100px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    & > img {
+        width: 223px;
+        filter: drop-shadow(0 0 100px #FEFF6B);
+    
+        // animation: oneRotate 50s infinite linear;
+        animation: floating 3s infinite ease-in-out;
+    }
+
+    & > h1 {
+        font-size: 100px;
+    }
+}
+
+.touch {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    width: max-content;
+
+    font-size: 30px;
+    font-weight: 400;
+    color: $color-textShy;
+}
+
+@keyframes oneRotate {
+    from {
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
