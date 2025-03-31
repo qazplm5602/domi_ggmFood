@@ -1,3 +1,59 @@
 .main {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100dvh;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
     
+    & > .logo {
+        display: flex;
+        align-items: center;
+        
+        padding: 25px;
+        
+        gap: 20px;
+
+        & > img {
+            width: 60px;
+            filter: drop-shadow(0 0 30px rgba(254, 255, 107, 0.5));
+        }
+
+        & > h1 {
+            font-size: 30px;
+        }
+    }
+}
+
+.content {
+    flex-grow: 1;
+    height: 0;
+
+    // border: 1px solid red;
+}
+
+.interaction {
+    // border: 1px solid blue;
+    padding: 25px;
+    
+    & > button {
+        background-color: $color-misExtra;
+        padding: 10px 25px;
+
+        border: none;
+        border-radius: 43px;
+
+        font-size: 20px;
+        font-weight: 500;
+        color: $color-white;
+    }
+
+    & > .back {
+        display: flex;
+        align-items: center;
+        gap:  0 20px;
+    }
 }

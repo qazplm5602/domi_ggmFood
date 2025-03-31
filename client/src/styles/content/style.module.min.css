@@ -1,0 +1,2 @@
+.main{display:flex;flex-direction:column;min-height:100dvh}.head{display:flex;justify-content:space-between}.head>.logo{display:flex;align-items:center;padding:25px;gap:20px}.head>.logo>img{width:60px;filter:drop-shadow(0 0 30px rgba(254, 255, 107, 0.5))}.head>.logo>h1{font-size:30px}.content{flex-grow:1;height:0;border:1px solid red}.interaction{border:1px solid blue;height:100px}
+/*# sourceMappingURL=style.module.min.css.map */
