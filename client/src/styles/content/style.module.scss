@@ -11,6 +11,18 @@
     background-color: $color-mist;
 }
 
+@mixin baseButton {
+    background-color: $color-misExtra;
+    padding: 10px 25px;
+
+    border: none;
+    border-radius: 43px;
+
+    font-size: 20px;
+    font-weight: 500;
+    color: $color-white;
+}
+
 .main {
     display: flex;
     flex-direction: column;
@@ -21,12 +33,14 @@
 .head {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    padding: 25px;
     
     & > .logo {
         display: flex;
         align-items: center;
         
-        padding: 25px;
         
         gap: 20px;
 
@@ -38,6 +52,14 @@
         & > h1 {
             font-size: 30px;
         }
+    }
+    
+    & > .finish {
+        @include baseButton;
+        background-color: #32A14A;
+
+        display: flex;
+        gap: 0 15px;
     }
 }
 
@@ -66,15 +88,7 @@
     padding: 25px;
     
     & > button {
-        background-color: $color-misExtra;
-        padding: 10px 25px;
-
-        border: none;
-        border-radius: 43px;
-
-        font-size: 20px;
-        font-weight: 500;
-        color: $color-white;
+        @include baseButton;
     }
 
     & > .back {
