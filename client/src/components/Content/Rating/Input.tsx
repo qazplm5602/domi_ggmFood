@@ -1,11 +1,21 @@
 import style from '@styles/content/rating.module.scss';
-import ContentInputInteraction from './InputInteraction';
+import ContentRatingInputBox from './Box';
+import { AnimatePresence, motion } from 'framer-motion';
 
-export default function ContentRatingInput() {
-    return <div className={style.inputScreen}>
-        <h1>기타 의견을 입력하세요.</h1>
+type Props = {
+    show: boolean
+}
 
-        <input type="text" placeholder="의견을 입력하세요." />
-        <ContentInputInteraction />
-    </div>;
+export default function ContentRatingInput({ show }: Props) {
+    return <AnimatePresence>
+        {show && <motion.div
+                    className={style.inputScreen}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                >
+            <ContentRatingInputBox />
+        </motion.div>}
+    </AnimatePresence>;
 }

@@ -9,6 +9,6 @@ export default function ContentRating() {
         <Star />
         <Opinion className={style.opinion} />
 
-        <ContentRatingInput />
+        <ContentRatingInput show={false} />
     </section>;
 }
