@@ -1,0 +1,2 @@
+.light>div{position:absolute;transform:translate(-50%, -50%);width:300px;height:300px;border-radius:50%;background-color:#41c95f;filter:blur(170px)}.light>div.big{top:calc(50% + 50px);left:calc(50% + 50px)}.light>div.small{width:100px;height:100px;top:calc(50% - 150px);left:calc(50% - 200px);filter:blur(100px)}.screen>h1{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);width:-webkit-max-content;width:-moz-max-content;width:max-content;font-size:60px;text-shadow:0 0 20px rgba(255,255,255,.6)}
+/*# sourceMappingURL=style.module.min.css.map */

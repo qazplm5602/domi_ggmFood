@@ -1,0 +1,41 @@
+.light {
+    & > div {
+        position: absolute;
+        transform: translate(-50%, -50%);
+
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        
+        background-color: #41C95F;
+        filter: blur(170px);
+
+        &.big {
+            top: calc(50% + 50px);
+            left: calc(50% + 50px);
+        }
+        &.small {
+            width: 100px;
+            height: 100px;
+
+            top: calc(50% - 150px);
+            left: calc(50% - 200px);
+            
+            filter: blur(100px);
+        }
+    }
+}
+
+.screen {
+    & > h1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: max-content;
+        
+        font-size: 60px;
+        text-shadow: 0 0 20px rgba($color: #ffffff, $alpha: 0.6);
+    }
+}

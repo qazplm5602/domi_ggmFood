@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ScreenNameType = 'Home' | 'Content';
+export type ScreenNameType = 'Home' | 'Content' | 'Finish';
 
 interface ScreenStoreType {
     screen: ScreenNameType,
@@ -8,7 +8,7 @@ interface ScreenStoreType {
 }
 
 export const useScreenStore = create<ScreenStoreType>()(set => ({
-    screen: "Content",
+    screen: "Finish",
     setScreen(mode) {
         set({ screen: mode });
     }
