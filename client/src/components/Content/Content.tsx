@@ -3,6 +3,7 @@ import style from '@styles/content/style.module.scss';
 import ContentHead from './Head/Head';
 import ContentInteraction from './Interaction/Interaction';
 import ContentGrade from './Grade/Grade';
+import ContentClass from './Class/Class';
 
 export default function Content() {
     const { step } = useIdentityStore();
@@ -12,6 +13,7 @@ export default function Content() {
 
         <section className={style.content}>
             {step === 'Grade' && <ContentGrade />}
+            {step === 'Class' && <ContentClass />}
         </section>
         
         <ContentInteraction />
