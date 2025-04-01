@@ -151,6 +151,7 @@
 
     & > button {
         // $size: 100px;
+        @include selectButton;
         
         flex-shrink: 0;
 
@@ -163,6 +164,19 @@
         aspect-ratio: 1/1;
         border-radius: 50%;
 
-        @include selectButton;
+        // 기본으로 숨겨져 있음
+        opacity: 0;
+        transform: scale(0.9);
+
+        animation: scaleShow 400ms forwards;
+
+        @keyframes scaleShow {
+            from {
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
     }
 }
