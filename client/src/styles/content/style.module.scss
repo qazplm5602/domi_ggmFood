@@ -180,3 +180,40 @@
         }
     }
 }
+
+.nameList {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: start;
+
+    flex-grow: 1;
+    height: 0;
+    gap: 20px;
+
+    padding: 40px;
+
+    & > button {
+        @include selectButton;
+
+        font-size: 35px;
+        font-weight: 300;
+        border-radius: 5px;
+
+        width: calc(20% - 16px);
+        height: 70px;
+
+        // 애니메이션ㅁㅁㅁㅁㅁ
+        opacity: 0;
+        
+        animation: fadeIn 300ms forwards linear;
+
+        @keyframes fadeIn {
+            from {
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    }
+}
