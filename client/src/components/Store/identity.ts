@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type IdentityStep = 'Grade' | 'Class' | 'Name';
+export type IdentityStep = 'Grade' | 'Class' | 'Name' | 'Star';
 
 interface IdentityStoreType {
     step: IdentityStep,
@@ -10,7 +10,7 @@ interface IdentityStoreType {
 }
 
 export const useIdentityStore = create<IdentityStoreType>()(set => ({
-    step: 'Name',
+    step: 'Star',
     class: 0,
     grade: 0,
     studentId: -1

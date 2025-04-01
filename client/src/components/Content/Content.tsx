@@ -5,6 +5,7 @@ import ContentInteraction from './Interaction/Interaction';
 import ContentGrade from './Grade/Grade';
 import ContentClass from './Class/Class';
 import ContentName from './Name/Name';
+import ContentRating from './Rating/Rating';
 
 export default function Content() {
     const { step } = useIdentityStore();
@@ -16,6 +17,7 @@ export default function Content() {
             {step === 'Grade' && <ContentGrade />}
             {step === 'Class' && <ContentClass />}
             {step === 'Name' && <ContentName />}
+            {step === 'Star' && <ContentRating />}
         </section>
         
         <ContentInteraction />
