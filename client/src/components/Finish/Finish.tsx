@@ -1,12 +1,9 @@
-import style from '@styles/finish/style.module.scss';
 import FinishContent from './Content';
+import FinishLight from './Light';
 
 export default function Finish() {
     return <main>
-        <section className={style.light}>
-            <div className={style.big}></div>
-            <div className={style.small}></div>
-        </section>
+        <FinishLight />
         <FinishContent />
     </main>;
 }
