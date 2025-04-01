@@ -39,3 +39,37 @@
         text-shadow: 0 0 20px rgba($color: #ffffff, $alpha: 0.6);
     }
 }
+
+.interaction {
+    position: absolute;
+    left: 50%;
+    bottom: 100px;
+    transform: translate(-50%, 0);
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    & > button {
+        width: 500px;
+        height: 55px;
+
+        font-size: 20px;
+        font-weight: 600;
+        color: $color-white;
+
+        background-color: $color-misExtra;
+        border: none;
+        border-radius: 5px;
+        
+        box-shadow: 0 0 30px rgba($color: #000, $alpha: 0.3);
+    }
+
+    & > p {
+        color: $color-textSupporting;
+        font-size: 18px;
+
+        margin-bottom: 10px;
+    }
+}
