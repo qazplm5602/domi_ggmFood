@@ -19,6 +19,30 @@
 CREATE DATABASE IF NOT EXISTS `ggm_food` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `ggm_food`;
 
+-- 테이블 ggm_food.opinions 구조 내보내기
+CREATE TABLE IF NOT EXISTS `opinions` (
+  `rating` int(11) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  KEY `FK__rating` (`rating`),
+  CONSTRAINT `FK__rating` FOREIGN KEY (`rating`) REFERENCES `rating` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 ggm_food.rating 구조 내보내기
+CREATE TABLE IF NOT EXISTS `rating` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `student` int(11) NOT NULL,
+  `mode` enum('조','중','석') NOT NULL,
+  `star` tinyint(1) NOT NULL,
+  `createAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK__students` (`student`),
+  CONSTRAINT `FK__students` FOREIGN KEY (`student`) REFERENCES `students` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
 -- 테이블 ggm_food.students 구조 내보내기
 CREATE TABLE IF NOT EXISTS `students` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
