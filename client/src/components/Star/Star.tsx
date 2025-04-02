@@ -24,6 +24,5 @@ export default function Star() {
             })}
         </div>
         
-        <p className={style.count}><span>1</span> / 5</p>
     </article>;
 }

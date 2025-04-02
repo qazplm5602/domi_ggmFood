@@ -86,4 +86,20 @@
             }
         }
     }
+
+    & > .red {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        animation: fadeOut 1s linear forwards;
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    }
 }
