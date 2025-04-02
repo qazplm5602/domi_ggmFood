@@ -11,9 +11,10 @@ const defaultOpinions = [
     "음식이 너무 짜요",
     "국이 없어요",
     "너무 매워요",
+    "너무 느끼해요",
     "음식이 차가워요",
-    "생선이 싫어요 (도미 아님)",
     "튀김이 눅눅해요",
+    "생선이 싫어요 (도미 아님)",
     "음식 갯수가 적어요 (제한된 갯수)",
 ];
 const defaultMenuSet = new Set<string>(defaultOpinions);
