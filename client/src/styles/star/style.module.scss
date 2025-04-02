@@ -51,6 +51,7 @@
 
         z-index: 1;
         
+        opacity: 0;
         animation: domiStar 1s cubic-bezier(.85,.58,.15,1.05) forwards;
 
         // @keyframes domiStar {
@@ -70,11 +71,11 @@
         @keyframes domiStar {
             0% {
                 opacity: 0;
-                transform: scale(2);
+                transform: scale(1.5);
             }
             30% {
                 opacity: 1;
-                transform: scale(2);
+                transform: scale(1.5);
             }
             60% {
                 opacity: 1;
