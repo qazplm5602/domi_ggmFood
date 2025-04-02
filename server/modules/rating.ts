@@ -62,8 +62,8 @@ export async function writeFoodRatingInternal(req: ExpressReq, res: ExpressRes, 
 }
 
 export async function updateFoodRating(req: ExpressReq, res: ExpressRes) {
-    const student = Number(req.query.student);
-    const mode = Number(req.query.mode);
+    const student = Number(req.body.student);
+    const mode = Number(req.body.mode);
 
     // 잘못줌
     if (isNaN(student) || isNaN(mode) || !validateMode(mode)) {
@@ -89,8 +89,8 @@ export async function updateFoodRating(req: ExpressReq, res: ExpressRes) {
         await connection.query("DELETE FROM opinions WHERE rating = ?", [ ratingId ]);
         await connection.query("DELETE FROM rating WHERE id = ?", [ ratingId ]);
 
-        req.body.student = student;
-        req.body.mode = mode;
+        // req.body.student = student;
+        // req.body.mode = mode;
         writeFoodRatingInternal(req, res, connection);
     } catch {
         connection.rollback()
