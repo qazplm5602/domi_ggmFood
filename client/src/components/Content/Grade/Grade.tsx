@@ -3,7 +3,7 @@ import { useStudentStore } from '@components/Store/student';
 import style from '@styles/content/style.module.scss';
 
 export default function ContentGrade() {
-    const { classes } = useStudentStore();
+    const { students } = useStudentStore();
     const { setStep, setGrade } = useIdentityStore();
 
     const handleClick = function(value: number) {
@@ -14,7 +14,7 @@ export default function ContentGrade() {
     return <>
         <h2 className={style.title}>학년을 선택하세요.</h2>
         <article className={style.gradeList}>
-            {(Object.keys(classes)).map(v => <button key={v} onClick={() => handleClick(Number(v))}>{v} 학년</button>)}
+            {(Object.keys(students)).map(v => <button key={v} onClick={() => handleClick(Number(v))}>{v} 학년</button>)}
         </article>
     </>;
 }

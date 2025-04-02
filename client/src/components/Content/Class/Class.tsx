@@ -4,8 +4,8 @@ import style from '@styles/content/style.module.scss';
 
 export default function ContentClass() {
     const { grade, setClass, setStep } = useIdentityStore();
-    const { classes: classList } = useStudentStore();
-    const classes = classList[grade];
+    const { students } = useStudentStore();
+    const classes = Object.keys(students[grade]).map(v => Number(v));
     
     const handleClassClick = function(value: number) {
         setClass(value);
