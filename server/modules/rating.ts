@@ -50,6 +50,21 @@ export async function writeFoodRating(req: ExpressReq, res: ExpressRes) {
     res.send({ ok: true });
 }
 
+// 오늘 이미 평가를 했는지 물어봄
+export async function getAlreadyRating(req: ExpressReq, res: ExpressRes) {
+    const student = Number(req.query.student);
+    const mode = Number(req.query.mode);
+
+    // 잘못줌
+    if (isNaN(student) || isNaN(mode) || !validateMode(mode)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    const [ [ { count } ] ] = await pool.query<any>("SELECT COUNT(*) as count FROM rating WHERE student = ? AND mode = ? AND DATE(createAt) = DATE(NOW())", [ student, mode ]);
+    res.send(count > 0);
+}
+
 // 조 , 중, 식 타입 검사
 function validateMode(mode: any) {
     if (typeof mode !== 'number')
