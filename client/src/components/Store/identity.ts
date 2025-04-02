@@ -7,7 +7,8 @@ interface IdentityStoreType {
     grade: number,
     class: number,
     studentId: number,
-    setStep: (step: IdentityStep) => void
+    setStep: (step: IdentityStep) => void,
+    setGrade: (grade: number) => void
 }
 
 export const useIdentityStore = create<IdentityStoreType>()(set => ({
@@ -15,5 +16,6 @@ export const useIdentityStore = create<IdentityStoreType>()(set => ({
     class: 0,
     grade: 0,
     studentId: -1,
-    setStep: (step) => set({ step })
+    setStep: (step) => set({ step }),
+    setGrade: (grade: number) => set({ grade })
 }));
