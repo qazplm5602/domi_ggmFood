@@ -1,17 +1,22 @@
 import style from '@styles/content/style.module.scss';
 import logoImage from '@assets/images/logo.png';
-import checkIcon from '@assets/icons/check.svg';
+import { useScreenStore } from '@components/Store/screen';
+import { useIdentityStore } from '@components/Store/identity';
+import ContentHeadFinishBtn from './FinishBtn';
 
 export default function ContentHead() {
+    const { step } = useIdentityStore();
+    const { screen } = useScreenStore();
+    
+    const isScreenRating = screen === 'Content' && step === 'Star';
+    
+
     return <header className={style.head}>
         <div className={style.logo}>
             <img src={logoImage} alt='logo' />
             <h1>급식 평가</h1>
         </div>
 
-        <button className={style.finish}>
-            <img src={checkIcon} alt="finish" />
-            완료하기
-        </button>
+        {isScreenRating && <ContentHeadFinishBtn />}
     </header>;
 }

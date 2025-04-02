@@ -8,7 +8,7 @@ interface ScreenStoreType {
 }
 
 export const useScreenStore = create<ScreenStoreType>()(set => ({
-    screen: "Content",
+    screen: "Home",
     setScreen(mode) {
         set({ screen: mode });
     }
