@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from 'axios';
 import { Student, StudentsTable, useStudentStore } from "@components/Store/student";
-import StudentSysLoading from "./Loading";
+import { useLoadingStore } from "@components/Store/loading";
 
 export default function StudentSys() {
-    const [ loading, setLoading ] = useState(true);
+    const { setActive: setLoadingActive } = useLoadingStore();
     const { setStudents } = useStudentStore();
 
     const loadStudent = async function(aliveRef: { alive: boolean }) {
-        setLoading(true);
+        setLoadingActive(true);
 
         const response = await axios.get<Student[]>("/api/students");
         if (!aliveRef.alive) return;
@@ -32,8 +32,7 @@ export default function StudentSys() {
             classes.push(user);
         }
         setStudents(result);
-
-        setLoading(false);
+        setLoadingActive(false);
     }
 
     useEffect(() => {
@@ -44,9 +43,6 @@ export default function StudentSys() {
             aliveRef.alive = false;
         }
     }, []);
-
-    if (loading)
-        return <StudentSysLoading />;
 
     return null;
 }
