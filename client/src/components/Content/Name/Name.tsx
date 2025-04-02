@@ -1,3 +1,4 @@
+// import { usePopupStore } from '@components/Popup/store';
 import { useIdentityStore } from '@components/Store/identity';
 import { useRatingStore } from '@components/Store/rating';
 import { useStudentStore } from '@components/Store/student';
@@ -7,10 +8,11 @@ export default function ContentName() {
     const { grade, class: classNum, setStudentId, setStep } = useIdentityStore();
     const { students } = useStudentStore();
     const { reset: ratingReset } = useRatingStore();
+    // const { openPopup } = usePopupStore();
 
     const handleClick = function(id: number) {
         setStudentId(id);
-        
+
         // 여기에서 초기화 점
         ratingReset();
 
