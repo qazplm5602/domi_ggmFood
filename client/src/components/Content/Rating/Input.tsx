@@ -3,10 +3,11 @@ import ContentRatingInputBox from './Box';
 import { AnimatePresence, motion } from 'framer-motion';
 
 type Props = {
-    show: boolean
+    show: boolean,
+    onClose?: () => void
 }
 
-export default function ContentRatingInput({ show }: Props) {
+export default function ContentRatingInput({ show, onClose }: Props) {
     return <AnimatePresence>
         {show && <motion.div
                     className={style.inputScreen}
@@ -15,7 +16,7 @@ export default function ContentRatingInput({ show }: Props) {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
                 >
-            <ContentRatingInputBox />
+            <ContentRatingInputBox onClose={onClose} />
         </motion.div>}
     </AnimatePresence>;
 }
