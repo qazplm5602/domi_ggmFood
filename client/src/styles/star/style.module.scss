@@ -20,8 +20,9 @@
     }
 }
 
-// .list {
-// }
+.list {
+    position: relative;
+}
 
 .item {
     position: relative;
@@ -101,5 +102,18 @@
                 opacity: 0;
             }
         }
+    }
+
+    &.zero {
+        position: absolute;
+        top: 50%;
+        left: -20px;
+
+        // border: 1px solid red;
+
+        transform: translate(-100%, -50%);
+
+        width: 100px;
+        height: 100px;
     }
 }
