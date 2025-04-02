@@ -1,5 +1,6 @@
 import style from '@styles/opinion/style.module.scss';
 import OpinionButtonDefault from './ButtonDefault';
+import { useRatingStore } from '@components/Store/rating';
 
 type Props = {
     className?: string,
@@ -13,13 +14,20 @@ const defaultOpinions = [
     "너무 느끼해요",
     "생선이 싫어요"
 ];
+const defaultMenuSet = new Set<string>(defaultOpinions);
 
 export default function Opinion({ className, onOpenInput }: Props) {
+    const { opinions, removeOpinion } = useRatingStore();
+    const handleRemoveOpinion = function(idx: number) {
+        removeOpinion(idx);
+    }
+
     return <div className={`${style.box} ${className || ''}`}>
         <h3>의견</h3>
 
         <section className={style.list}>
             {defaultOpinions.map(v => <OpinionButtonDefault key={`default-${v}`} content={v} />)}
+            {opinions.filter(v => !defaultMenuSet.has(v)).map((v, i) => <button key={`custom-${v}`} className={style.active} onClick={() => handleRemoveOpinion(i)}>{v}</button>)}
             <button onClick={onOpenInput}>기타</button>
         </section>
     </div>
