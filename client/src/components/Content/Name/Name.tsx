@@ -1,13 +1,19 @@
 import { useIdentityStore } from '@components/Store/identity';
+import { useRatingStore } from '@components/Store/rating';
 import { useStudentStore } from '@components/Store/student';
 import style from '@styles/content/style.module.scss';
 
 export default function ContentName() {
     const { grade, class: classNum, setStudentId, setStep } = useIdentityStore();
     const { students } = useStudentStore();
+    const { reset: ratingReset } = useRatingStore();
 
     const handleClick = function(id: number) {
         setStudentId(id);
+        
+        // 여기에서 초기화 점
+        ratingReset();
+
         setStep('Star');
     }
 

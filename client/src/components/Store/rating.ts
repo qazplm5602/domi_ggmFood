@@ -5,7 +5,8 @@ interface RatingStoreType {
     opinions: string[],
     setStar: (amount: number) => void,
     addOpinion: (text: string) => void,
-    removeOpinion: (idx: number) => void
+    removeOpinion: (idx: number) => void,
+    reset: () => void
 }
 
 export const useRatingStore = create<RatingStoreType>()(set => ({
@@ -24,5 +25,6 @@ export const useRatingStore = create<RatingStoreType>()(set => ({
             
             return { opinions: newVal };
         });
-    }
+    },
+    reset: () => set({ star: 1, opinions: [] })
 }));
