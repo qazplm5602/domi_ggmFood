@@ -14,7 +14,7 @@ interface IdentityStoreType {
 }
 
 export const useIdentityStore = create<IdentityStoreType>()(set => ({
-    step: 'Star',
+    step: 'Grade',
     class: 0,
     grade: 0,
     studentId: -1,

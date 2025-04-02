@@ -2,10 +2,16 @@ import Opinion from '@components/Opinion/Opinion';
 import Star from '@components/Star/Star';
 import style from '@styles/content/rating.module.scss';
 import ContentRatingInput from './Input';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useStudentStore } from '@components/Store/student';
+import { useIdentityStore } from '@components/Store/identity';
 
 export default function ContentRating() {
     const [ inputShow, setInputShow ] = useState(false);
+    const { grade, class: classNum, studentId } = useIdentityStore();
+    const { students } = useStudentStore();
+    const currentStudent = useMemo(() => students[grade][classNum].find(v => v.id === studentId), [grade, classNum, studentId]);
+
     const handleOpenInput = function() {
         setInputShow(true);
     }
@@ -13,8 +19,12 @@ export default function ContentRating() {
         setInputShow(false);
     }
 
+    if (!currentStudent) {
+        return <h1>오류 :( / currentStudent variable undefined</h1>;
+    }
+
     return <section className={style.screen}>
-        <h2 className={style.headTitle}>김도미님, 오늘 석식은 어떠셨나요?</h2>
+        <h2 className={style.headTitle}>{currentStudent.name}님, 오늘 석식은 어떠셨나요?</h2>
         <Star />
         <Opinion className={style.opinion} onOpenInput={handleOpenInput}  />
 
