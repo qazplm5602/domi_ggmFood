@@ -1,11 +1,15 @@
 import { create } from "zustand";
 
+type FoodTimeMode = 0 | 1 | 2;
+
 interface FoodTimeStoreType {
-    mode: 0 | 1 | 2,
+    mode: FoodTimeMode,
+    setMode: (mode: FoodTimeMode) => void
 }
 
 export const useFoodTimeStore = create<FoodTimeStoreType>()(set => ({
     mode: 0,
+    setMode: mode => set({ mode })
 }));
 
 export function getFoodTimeDisplayName(mode: FoodTimeStoreType['mode']) {
