@@ -29,5 +29,9 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
+  },
+  define: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+    APP_BUILD_DATE: JSON.stringify(new Date().toString()),
   }
 })
