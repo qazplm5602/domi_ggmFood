@@ -3,6 +3,7 @@ import logoImage from '@assets/images/logo.png';
 import { useScreenStore } from '@components/Store/screen';
 import { useIdentityStore } from '@components/Store/identity';
 import ContentHeadFinishBtn from './FinishBtn';
+import { AnimatePresence } from 'framer-motion';
 
 export default function ContentHead() {
     const { step } = useIdentityStore();
@@ -17,6 +18,8 @@ export default function ContentHead() {
             <h1>급식 평가</h1>
         </div>
 
-        {isScreenRating && <ContentHeadFinishBtn />}
+        <AnimatePresence>
+            {isScreenRating && <ContentHeadFinishBtn />}
+        </AnimatePresence>
     </header>;
 }

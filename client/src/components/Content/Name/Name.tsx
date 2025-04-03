@@ -15,7 +15,7 @@ export default function ContentName() {
     const { mode: foodTime } = useFoodTimeStore();
     const { openPopup, closePopup } = usePopupStore();
 
-    const alreadyAlert = function(student: number, ratingId: number) {
+    const alreadyAlert = function(ratingId: number) {
         const handleEdit = async function() {
             setLoadingActive(true);
             
@@ -46,7 +46,7 @@ export default function ContentName() {
         
         // 이미 했는디ㅣㅣㅣ
         if (!isNaN(ratingId) && ratingId !== -1) {
-            alreadyAlert(student, ratingId);
+            alreadyAlert(ratingId);
             return;
         }
 
