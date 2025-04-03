@@ -22,17 +22,17 @@ export default function ContentHeadFinishBtn() {
         if (step !== 'Star') return; // 어디 화면이여
 
         setLoadingActive(true);
+
+        const data = {
+            student: studentId,
+            mode: foodTime,
+            star,
+            opinions
+        };
         
         if (id) { // 수정
-            
+            await axios.put("/api/rating", data, { params: { id } });
         } else { // 추가 ㅁㄴㅇㄹ
-            const data = {
-                student: studentId,
-                mode: foodTime,
-                star,
-                opinions
-            };
-
             await axios.post("/api/rating", data);
         }
         

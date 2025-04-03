@@ -63,11 +63,17 @@ export async function writeFoodRatingInternal(req: ExpressReq, res: ExpressRes, 
 }
 
 export async function updateFoodRating(req: ExpressReq, res: ExpressRes) {
-    const student = Number(req.body.student);
-    const mode = Number(req.body.mode);
+    // const student = Number(req.body.student);
+    // const mode = Number(req.body.mode);
 
-    // 잘못줌
-    if (isNaN(student) || isNaN(mode) || !validateMode(mode)) {
+    // // 잘못줌
+    // if (isNaN(student) || isNaN(mode) || !validateMode(mode)) {
+    //     res.sendStatus(400);
+    //     return;
+    // }
+
+    const ratingId = Number(req.query.id);
+    if (isNaN(ratingId)) {
         res.sendStatus(400);
         return;
     }
@@ -77,7 +83,7 @@ export async function updateFoodRating(req: ExpressReq, res: ExpressRes) {
     // 일단 삭제
     try {
         // id 찾기
-        const [ rows ] = await connection.query<any>("SELECT id FROM rating WHERE student = ? AND mode = ? AND DATE(createAt) = DATE(NOW())", [ student, formatMode(mode) ]);
+        const [ rows ] = await connection.query<any>("SELECT student, mode FROM rating WHERE id = ?", [ ratingId ]);
 
         if (rows.length === 0) {
             connection.release();
@@ -85,13 +91,14 @@ export async function updateFoodRating(req: ExpressReq, res: ExpressRes) {
             return;
         }
 
-        const ratingId = rows[0].id;
+        const { student, mode } = rows[0];
+        console.log(rows[0]);
 
         await connection.query("DELETE FROM opinions WHERE rating = ?", [ ratingId ]);
         await connection.query("DELETE FROM rating WHERE id = ?", [ ratingId ]);
 
-        // req.body.student = student;
-        // req.body.mode = mode;
+        req.body.student = Number(student);
+        req.body.mode = formatModeToId(mode);
         writeFoodRatingInternal(req, res, connection);
     } catch {
         connection.rollback()
