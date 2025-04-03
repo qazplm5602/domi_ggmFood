@@ -33,7 +33,7 @@ export default function ContentHeadFinishBtn() {
                 opinions
             };
 
-            await axios.post("/api/rating", { data });
+            await axios.post("/api/rating", data);
         }
         
         setLoadingActive(false);
