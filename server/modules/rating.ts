@@ -119,6 +119,34 @@ export async function getAlreadyRating(req: ExpressReq, res: ExpressRes) {
     res.send(String(rows[0].id));
 }
 
+// 오늘 평가 한거 가져옴
+export async function getDetailRating(req: ExpressReq, res: ExpressRes) {
+    const ratingId = Number(req.query.id)
+
+    // 잘못줌
+    if (isNaN(ratingId)) {
+        res.sendStatus(400);
+        return;
+    }
+
+    const query1 = pool.query<any>("SELECT id, mode, star FROM rating WHERE id = ?", [ ratingId ]);
+    const query2 = pool.query<any>("SELECT message FROM opinions WHERE rating = ?", [ ratingId ]);
+
+    const [ [ ratings ], [ opinions ] ] = await Promise.all([query1, query2]);
+    
+    if (ratings.length === 0) {
+        res.sendStatus(404);
+        return;
+    }
+
+    const data = ratings[0];
+
+    res.send({
+        // id: ratingId,
+        star: data.star,
+        mode: formatModeToId(data.mode),
+        opinions: opinions.map((v: { message: string }) => v.message)
+    });
 }
 
 // 조 , 중, 식 타입 검사
@@ -142,5 +170,18 @@ function formatMode(mode: number) {
             return '석';
         default:
             throw new Error(`${mode} faild mode format.`);
+    }
+}
+
+function formatModeToId(modeString: string): number {
+    switch (modeString) {
+        case '조':
+            return 0;
+        case '중':
+            return 1;
+        case '석':
+            return 2;
+        default:
+            throw new Error(`${modeString} is not a valid mode string.`);
     }
 }
