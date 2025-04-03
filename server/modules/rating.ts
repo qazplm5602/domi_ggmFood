@@ -92,7 +92,6 @@ export async function updateFoodRating(req: ExpressReq, res: ExpressRes) {
         }
 
         const { student, mode } = rows[0];
-        console.log(rows[0]);
 
         await connection.query("DELETE FROM opinions WHERE rating = ?", [ ratingId ]);
         await connection.query("DELETE FROM rating WHERE id = ?", [ ratingId ]);
