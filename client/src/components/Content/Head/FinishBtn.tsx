@@ -31,9 +31,9 @@ export default function ContentHeadFinishBtn() {
         };
         
         if (id) { // 수정
-            await axios.put("/api/rating", data, { params: { id } });
+            await axios.put("./api/rating", data, { params: { id } });
         } else { // 추가 ㅁㄴㅇㄹ
-            await axios.post("/api/rating", data);
+            await axios.post("./api/rating", data);
         }
         
         setLoadingActive(false);

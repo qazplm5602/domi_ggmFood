@@ -10,7 +10,7 @@ export default function StudentSys() {
     const loadStudent = async function(aliveRef: { alive: boolean }) {
         setLoadingActive(true);
 
-        const response = await axios.get<Student[]>("/api/students");
+        const response = await axios.get<Student[]>("./api/students");
         if (!aliveRef.alive) return;
 
         // 학생 데이터 파싱

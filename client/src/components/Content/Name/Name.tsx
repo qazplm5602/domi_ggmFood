@@ -19,7 +19,7 @@ export default function ContentName() {
         const handleEdit = async function() {
             setLoadingActive(true);
             
-            const response = await axios.get<RatingDetail>("/api/rating/detail", { params: { id: ratingId } });
+            const response = await axios.get<RatingDetail>("./api/rating/detail", { params: { id: ratingId } });
             
             setLoadingActive(false);
 
@@ -39,7 +39,7 @@ export default function ContentName() {
     const hasAlreadyRating = async function(student: number) {
         setLoadingActive(true);
 
-        const response = await axios.get<string>("/api/rating", { params: { student, mode: foodTime } });
+        const response = await axios.get<string>("./api/rating", { params: { student, mode: foodTime } });
         const ratingId = Number(response.data);
 
         setLoadingActive(false);
