@@ -2,7 +2,7 @@ import { usePopupStore } from '@components/Popup/store';
 import { useFoodTimeStore } from '@components/Store/foodTime';
 import { useIdentityStore } from '@components/Store/identity';
 import { useLoadingStore } from '@components/Store/loading';
-import { useRatingStore } from '@components/Store/rating';
+import { RatingDetail, useRatingStore } from '@components/Store/rating';
 import { useStudentStore } from '@components/Store/student';
 import style from '@styles/content/style.module.scss';
 import axios from 'axios';
@@ -10,14 +10,21 @@ import axios from 'axios';
 export default function ContentName() {
     const { grade, class: classNum, setStudentId, setStep } = useIdentityStore();
     const { students } = useStudentStore();
-    const { reset: ratingReset } = useRatingStore();
+    const { reset: ratingReset, dataLoad: ratingDataLoad } = useRatingStore();
     const { setActive: setLoadingActive } = useLoadingStore();
     const { mode: foodTime } = useFoodTimeStore();
     const { openPopup, closePopup } = usePopupStore();
 
     const alreadyAlert = function(student: number, ratingId: number) {
-        const handleEdit = function() {
+        const handleEdit = async function() {
+            setLoadingActive(true);
             
+            const response = await axios.get<RatingDetail>("/api/rating/detail", { params: { id: ratingId } });
+            
+            setLoadingActive(false);
+
+            ratingDataLoad(ratingId, response.data);
+            setStep('Star');
         }
 
         openPopup("이미 되어있어요.", <>

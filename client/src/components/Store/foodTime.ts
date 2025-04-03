@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type FoodTimeMode = 0 | 1 | 2;
+export type FoodTimeMode = 0 | 1 | 2;
 
 interface FoodTimeStoreType {
     mode: FoodTimeMode,
