@@ -114,6 +114,7 @@ export async function getAlreadyRating(req: ExpressReq, res: ExpressRes) {
     const [ rows ] = await pool.query<any>("SELECT id FROM rating WHERE student = ? AND mode = ? AND DATE(createAt) = DATE(NOW())", [ student, formatMode(mode) ]);
     if (rows.length === 0) {
         res.send("-1");
+        return;
     }
 
     res.send(String(rows[0].id));
