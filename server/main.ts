@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import getUsersHandler from './modules/user.ts';
-import { getAlreadyRating, updateFoodRating, writeFoodRating } from './modules/rating.ts';
+import { getAlreadyRating, getDetailRating, updateFoodRating, writeFoodRating } from './modules/rating.ts';
 
 dotenv.config();
 
@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.get("/students", getUsersHandler);
 app.get("/rating", getAlreadyRating)
+app.get("/rating/detail", getDetailRating)
 app.post("/rating", writeFoodRating)
 app.put("/rating", updateFoodRating)
 

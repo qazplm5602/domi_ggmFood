@@ -111,8 +111,14 @@ export async function getAlreadyRating(req: ExpressReq, res: ExpressRes) {
         return;
     }
 
-    const [ [ { count } ] ] = await pool.query<any>("SELECT COUNT(*) as count FROM rating WHERE student = ? AND mode = ? AND DATE(createAt) = DATE(NOW())", [ student, formatMode(mode) ]);
-    res.send(count > 0);
+    const [ rows ] = await pool.query<any>("SELECT id FROM rating WHERE student = ? AND mode = ? AND DATE(createAt) = DATE(NOW())", [ student, formatMode(mode) ]);
+    if (rows.length === 0) {
+        res.send("-1");
+    }
+
+    res.send(String(rows[0].id));
+}
+
 }
 
 // 조 , 중, 식 타입 검사

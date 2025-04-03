@@ -15,7 +15,7 @@ export default function ContentName() {
     const { mode: foodTime } = useFoodTimeStore();
     const { openPopup, closePopup } = usePopupStore();
 
-    const alreadyAlert = function(student: number) {
+    const alreadyAlert = function(student: number, ratingId: number) {
         const handleEdit = function() {
             
         }
@@ -32,13 +32,14 @@ export default function ContentName() {
     const hasAlreadyRating = async function(student: number) {
         setLoadingActive(true);
 
-        const response = await axios.get<boolean>("/api/rating", { params: { student, mode: foodTime } });
+        const response = await axios.get<string>("/api/rating", { params: { student, mode: foodTime } });
+        const ratingId = Number(response.data);
 
         setLoadingActive(false);
         
         // 이미 했는디ㅣㅣㅣ
-        if (response.data) {
-            alreadyAlert(student);
+        if (!isNaN(ratingId) && ratingId !== -1) {
+            alreadyAlert(student, ratingId);
             return;
         }
 
