@@ -6,12 +6,14 @@ import ContentGrade from './Grade/Grade';
 import ContentClass from './Class/Class';
 import ContentName from './Name/Name';
 import ContentRating from './Rating/Rating';
+import ContentIdleSys from './IdleSys/IdleSys';
 
 export default function Content() {
     const { step } = useIdentityStore();
 
     return <main className={style.main}>
         <ContentHead />
+        <ContentIdleSys />
 
         <section className={style.content}>
             {step === 'Grade' && <ContentGrade />}
