@@ -38,15 +38,16 @@ export async function writeFoodRatingInternal(req: ExpressReq, res: ExpressRes, 
         await connection.query("INSERT INTO rating(student, mode, star, createAt) VALUES (?, ?, ?, NOW())", [ student, modeString, Math.floor(star) ]);
         const [ [ { id: ratingId } ] ] = await connection.query("SELECT LAST_INSERT_ID() AS id") as any;
 
-        const opinionQuery = mysql2.format(
-            "INSERT INTO opinions VALUES ?",
-            [[
-                ...opinions.map(v => [ ratingId, v ])
-            ]]
-        );
-
-        // console.log(opinions, opinionQuery);
-        await connection.query(opinionQuery);
+        if (opinions.length > 0) {
+            const opinionQuery = mysql2.format(
+                "INSERT INTO opinions VALUES ?",
+                [[
+                    ...opinions.map(v => [ ratingId, v ])
+                ]]
+            );
+    
+            await connection.query(opinionQuery);
+        }
 
         await connection.commit();
     } catch (e) {
