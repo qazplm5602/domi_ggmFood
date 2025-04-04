@@ -1,3 +1,5 @@
+import { NextFunction } from "express";
+import { DomiError } from "./error.ts";
 import { pool } from "./mysql.ts";
 import { ExpressReq, ExpressRes } from "./types.ts";
 import mysql2 from 'mysql2/promise';
@@ -9,11 +11,11 @@ interface RatingBodyType {
     mode: 0 | 1 | 2
 }
 
-export async function writeFoodRating(req: ExpressReq, res: ExpressRes) {
-    return writeFoodRatingInternal(req, res);
+export async function writeFoodRating(req: ExpressReq, res: ExpressRes, next: NextFunction) {
+    return writeFoodRatingInternal(req, res, next);
 }
 
-export async function writeFoodRatingInternal(req: ExpressReq, res: ExpressRes, connection?: mysql2.PoolConnection) {
+export async function writeFoodRatingInternal(req: ExpressReq, res: ExpressRes, next: NextFunction, connection?: mysql2.PoolConnection) {
     const { student, mode, star, opinions }: RatingBodyType = req.body;
 
     // 타입 검사
@@ -35,6 +37,11 @@ export async function writeFoodRatingInternal(req: ExpressReq, res: ExpressRes, 
     }
 
     try {
+        // 중복 확인
+        const [ [ { count: amountRating } ] ] = await connection.query<any>("SELECT COUNT(*) AS count FROM rating WHERE student = ? AND mode = ? AND DATE(createAt) = DATE(NOW())", [ student, modeString ]);
+        if (amountRating > 0) // 머임 이미 있는데 (수정하는 api 가 아님)
+            throw new DomiError(400, "RATING0", `이미 ${modeString}식 평가를 하였습니다.`);
+
         await connection.query("INSERT INTO rating(student, mode, star, createAt) VALUES (?, ?, ?, NOW())", [ student, modeString, Math.floor(star) ]);
         const [ [ { id: ratingId } ] ] = await connection.query("SELECT LAST_INSERT_ID() AS id") as any;
 
@@ -52,9 +59,7 @@ export async function writeFoodRatingInternal(req: ExpressReq, res: ExpressRes, 
         await connection.commit();
     } catch (e) {
         await connection.rollback(); // 실패 ~~~~
-        res.sendStatus(500);
-        console.error(e);
-        return;
+        next(e);
     } finally {
         connection.release();
     }
@@ -62,7 +67,7 @@ export async function writeFoodRatingInternal(req: ExpressReq, res: ExpressRes, 
     res.send({ ok: true });
 }
 
-export async function updateFoodRating(req: ExpressReq, res: ExpressRes) {
+export async function updateFoodRating(req: ExpressReq, res: ExpressRes, next: NextFunction) {
     // const student = Number(req.body.student);
     // const mode = Number(req.body.mode);
 
@@ -98,7 +103,7 @@ export async function updateFoodRating(req: ExpressReq, res: ExpressRes) {
 
         req.body.student = Number(student);
         req.body.mode = formatModeToId(mode);
-        writeFoodRatingInternal(req, res, connection);
+        writeFoodRatingInternal(req, res, next, connection);
     } catch {
         connection.rollback()
             .finally(() => connection.release());
