@@ -1,5 +1,6 @@
 import { usePopupStore } from "@components/Popup/store";
 import { useIdentityStore } from "@components/Store/identity";
+import { useLoadingStore } from "@components/Store/loading";
 import { useScreenStore } from "@components/Store/screen";
 import { useEffect } from "react";
 
@@ -8,12 +9,15 @@ const WARNING_DURATION = 10;
 
 export default function ContentIdleSys() {
     const { step } = useIdentityStore();
+    const { loading } = useLoadingStore();
     const { openPopup, closePopup } = usePopupStore();
     const { setScreen } = useScreenStore();
     
     useEffect(() => {
         let handler: NodeJS.Timeout | null = null;
         let alive = true;
+
+        if (loading) return; // 로딩 하고 있으면 돌아가면 안댐
 
         const goHome = function() {
             setScreen('Home');
@@ -55,7 +59,7 @@ export default function ContentIdleSys() {
 
             alive = false;
         }
-    }, [ step ]);
+    }, [ step, loading ]);
 
     return null;
 }
