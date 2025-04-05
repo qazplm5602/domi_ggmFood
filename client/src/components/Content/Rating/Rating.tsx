@@ -7,13 +7,21 @@ import { useStudentStore } from '@components/Store/student';
 import { useIdentityStore } from '@components/Store/identity';
 import { useRatingStore } from '@components/Store/rating';
 import { getFoodTimeDisplayName, useFoodTimeStore } from '@components/Store/foodTime';
+import { useTeacherMode } from '@components/Teacher/hooks';
 
 export default function ContentRating() {
-    const [ inputShow, setInputShow ] = useState(false);
+    // 학생 store
     const { grade, class: classNum, studentId } = useIdentityStore();
     const { students } = useStudentStore();
-    const currentStudent = useMemo(() => students[grade][classNum].find(v => v.id === studentId), [grade, classNum, studentId]);
+    const currentStudent = useMemo(() => {
+        if (!students[grade] || !students[grade][classNum]) return;
+        return students[grade][classNum].find(v => v.id === studentId);
+    }, [students, grade, classNum, studentId]);
+    
+    // 교사 store
+    const teacherMode = useTeacherMode();
 
+    const [ inputShow, setInputShow ] = useState(false);
     const { mode: currentFoodTime } = useFoodTimeStore();
     const { foodTime: savedFoodTime } = useRatingStore();
 
@@ -26,12 +34,12 @@ export default function ContentRating() {
         setInputShow(false);
     }
 
-    if (!currentStudent) {
+    if (!currentStudent && !teacherMode) {
         return <h1>오류 :( / currentStudent variable undefined</h1>;
     }
 
     return <section className={style.screen}>
-        <h2 className={style.headTitle}>{currentStudent.name}님, 오늘 {getFoodTimeDisplayName(foodTime)}은 어떠셨나요?</h2>
+        <h2 className={style.headTitle}>{teacherMode ? '선생' : currentStudent?.name}님, 오늘 {getFoodTimeDisplayName(foodTime)}은 어떠셨나요?</h2>
         <Star />
         <Opinion className={style.opinion} onOpenInput={handleOpenInput}  />
 

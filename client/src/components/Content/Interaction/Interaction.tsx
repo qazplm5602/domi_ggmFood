@@ -4,12 +4,19 @@ import arrowIcon from '@assets/icons/left-arrow.svg';
 import homeIcon from '@assets/icons/home.svg';
 import { useIdentityStore } from '@components/Store/identity';
 import { useScreenStore } from '@components/Store/screen';
+import { useTeacherMode } from '@components/Teacher/hooks';
 
 export default function ContentInteraction() {
     const { step, setStep } = useIdentityStore();
     const { setScreen } = useScreenStore();
+    const teacher = useTeacherMode();
 
     const handleBack = function() {
+        if (teacher) {
+            handleGoHome();
+            return;
+        }
+
         switch (step) {
             case 'Star':
                 setStep('Name');
@@ -34,6 +41,6 @@ export default function ContentInteraction() {
 
     return <section className={style.interaction}>
         <button className={style.back} onClick={handleBack}><img src={arrowIcon} alt='back' />뒤로가기</button>
-        <button className={style.home} onClick={handleGoHome}><img src={homeIcon} alt="home" /></button>
+        {!teacher && <button className={style.home} onClick={handleGoHome}><img src={homeIcon} alt="home" /></button>}
     </section>;
 }

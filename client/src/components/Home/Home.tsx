@@ -3,14 +3,22 @@ import HomeLogo from "./Logo";
 import HomeInfo from './Info';
 import { useScreenStore } from '@components/Store/screen';
 import { useIdentityStore } from '@components/Store/identity';
+import { useTeacherMode } from '@components/Teacher/hooks';
+import { useRatingStore } from '@components/Store/rating';
 
 export default function Home() {
     const { setScreen } = useScreenStore();
     const { setStep } = useIdentityStore();
+    const { reset: ratingClear } = useRatingStore();
+    const teacher = useTeacherMode();
     
+
     const handleClick = function() {
         setScreen("Content");
-        setStep("Grade");
+        setStep(teacher ? "Star" : "Grade");
+        
+        if (teacher)
+            ratingClear();
     }
 
     return <main className={style.main} onClick={handleClick}>
