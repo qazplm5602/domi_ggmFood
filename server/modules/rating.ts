@@ -57,14 +57,13 @@ export async function writeFoodRatingInternal(req: ExpressReq, res: ExpressRes, 
         }
 
         await connection.commit();
+        res.send({ ok: true });
     } catch (e) {
         await connection.rollback(); // 실패 ~~~~
         next(e);
     } finally {
         connection.release();
     }
-
-    res.send({ ok: true });
 }
 
 export async function updateFoodRating(req: ExpressReq, res: ExpressRes, next: NextFunction) {
