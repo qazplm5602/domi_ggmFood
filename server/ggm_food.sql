@@ -30,16 +30,20 @@ CREATE TABLE IF NOT EXISTS `opinions` (
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
 -- 테이블 ggm_food.rating 구조 내보내기
-CREATE TABLE IF NOT EXISTS `rating` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `student` int(11) NOT NULL,
-  `mode` enum('조','중','석') NOT NULL,
-  `star` tinyint(1) NOT NULL,
-  `createAt` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK__students` (`student`),
-  CONSTRAINT `FK__students` FOREIGN KEY (`student`) REFERENCES `students` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `rating` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`student` INT(11) NULL DEFAULT NULL COMMENT '이게 NULL이면 쌤이 한거',
+	`mode` ENUM('조','중','석') NOT NULL,
+	`star` TINYINT(1) NOT NULL,
+	`createAt` DATETIME NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `FK__students` (`student`),
+	CONSTRAINT `FK__students` FOREIGN KEY (`student`) REFERENCES `students` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=63
+;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
