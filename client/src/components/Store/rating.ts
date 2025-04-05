@@ -1,6 +1,12 @@
 import { create } from "zustand";
 import { FoodTimeMode } from "./foodTime";
 
+// 임시... export 해야하는데 어따가 할지 고민중
+export interface ErrorResponse {
+    code: string,
+    message: string
+}
+
 export interface RatingDetail {
     star: number,
     opinions: string[],
