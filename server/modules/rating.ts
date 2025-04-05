@@ -43,9 +43,10 @@ export async function writeFoodRatingInternal(req: ExpressReq, res: ExpressRes, 
             throw new DomiError(400, "RATING0", `이미 ${modeString}식 평가를 하였습니다.`);
 
         await connection.query("INSERT INTO rating(student, mode, star, createAt) VALUES (?, ?, ?, NOW())", [ student, modeString, Math.floor(star) ]);
-        const [ [ { id: ratingId } ] ] = await connection.query("SELECT LAST_INSERT_ID() AS id") as any;
-
+        
         if (opinions.length > 0) {
+            const [ [ { id: ratingId } ] ] = await connection.query("SELECT LAST_INSERT_ID() AS id") as any;
+
             const opinionQuery = mysql2.format(
                 "INSERT INTO opinions VALUES ?",
                 [[
@@ -158,6 +159,46 @@ export async function getDetailRating(req: ExpressReq, res: ExpressRes) {
         mode: formatModeToId(data.mode),
         opinions: opinions.map((v: { message: string }) => v.message)
     });
+}
+
+// 쌤 평가
+export async function writeFoodRatingTeacher(req: ExpressReq, res: ExpressRes, next: NextFunction) {
+    const { star, opinions, mode }: RatingBodyType = req.body;
+
+    let connection: mysql2.PoolConnection | null = null;
+    
+    try {
+        if (!validateMode(mode) || typeof star !== "number" || star < 0 || star > 5 || typeof opinions !== 'object') {
+            throw new DomiError(400, "RATING1", "body 내용이 잘못되었습니다.");
+        }
+
+        connection = await pool.getConnection();
+
+        await connection.query("INSERT INTO rating(student, mode, star, createAt) VALUES(NULL, ?, ?, NOW())", [ formatMode(mode), star ]);
+
+        if (opinions.length > 0) {
+            const [ [ { id: ratingId } ] ] = await connection.query("SELECT LAST_INSERT_ID() AS id") as any;
+    
+            if (opinions.length > 0) {
+                const opinionQuery = mysql2.format(
+                    "INSERT INTO opinions VALUES ?",
+                    [[
+                        ...opinions.map(v => [ ratingId, v ])
+                    ]]
+                );
+        
+                await connection.query(opinionQuery);
+            }
+        }
+
+        await connection.commit();
+        res.send({ ok: true });
+    } catch(e) {
+        connection?.rollback().finally(() => connection?.release());
+        next(e);
+    } finally {
+        connection?.release();
+    }
 }
 
 // 조 , 중, 식 타입 검사
