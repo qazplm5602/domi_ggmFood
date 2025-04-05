@@ -5,6 +5,8 @@ import { useLoadingStore } from '@components/Store/loading';
 import { useIdentityStore } from '@components/Store/identity';
 import { useScreenStore } from '@components/Store/screen';
 import useSaveRating from './ratingSave';
+import useSaveTeacherRating from '@components/Teacher/ratingSave';
+import { useTeacherMode } from '@components/Teacher/hooks';
 
 const ANIM_SHOW = { opacity: 1, scale: 1 };
 const ANIM_HIDE = { opacity: 0, scale: 0.9 };
@@ -13,15 +15,20 @@ export default function ContentHeadFinishBtn() {
     const { step } = useIdentityStore();
     const { setActive: setLoadingActive } = useLoadingStore();
     const { setScreen } = useScreenStore();
+    const teacher = useTeacherMode();
 
     const requestStudentSaving = useSaveRating();
+    const requestTeacherSaving = useSaveTeacherRating();
 
     const handleSubmit = async function() {
         if (step !== 'Star') return; // 어디 화면이여
 
         setLoadingActive(true);
 
-        await requestStudentSaving();
+        if (teacher)
+            await requestTeacherSaving();
+        else
+            await requestStudentSaving();
         
         setLoadingActive(false);
         setScreen('Finish');
