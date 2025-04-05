@@ -11,7 +11,9 @@ export default function Star() {
     const [ lastStar, setLastStar ] = useState(1);
 
     const handleStarClick = function(idx: number) {
-        setLastStar(star);
+        if (star !== idx + 1)
+            setLastStar(star);
+
         setStar(idx + 1);
     }
     
