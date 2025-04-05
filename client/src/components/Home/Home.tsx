@@ -7,6 +7,7 @@ import { useIdentityStore } from '@components/Store/identity';
 export default function Home() {
     const { setScreen } = useScreenStore();
     const { setStep } = useIdentityStore();
+    
     const handleClick = function() {
         setScreen("Content");
         setStep("Grade");

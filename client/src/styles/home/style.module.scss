@@ -21,6 +21,16 @@
     & > h1 {
         font-size: 100px;
     }
+
+    & > .teacher {
+        color: $color-textShy;
+        font-size: 20px;
+        margin-top: -15px;
+
+        width: 100%;
+        
+        text-align: right;
+    }
 }
 
 .touch {
