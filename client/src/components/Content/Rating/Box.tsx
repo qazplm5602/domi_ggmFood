@@ -19,7 +19,8 @@ export default function ContentRatingInputBox({ onClose }: Props) {
     }
     const handleSubmit = function() {
         // 넣기기
-        addOpinion(value);
+        if (value.length > 0)
+            addOpinion(value);
 
         handleClose();
     }
